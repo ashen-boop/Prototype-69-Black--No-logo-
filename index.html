@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1013,7 +1014,7 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
 
 /* ===== FLOATING FILTER CONTAINER ===== */
 .filter-container {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgb(255, 255, 255);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 80px;
@@ -1068,7 +1069,7 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
     border-radius: 40px;
     border: none;
     background: transparent;
-    color: #64748b;
+    color: #01000d;
     font-weight: 600;
     font-size: 0.85rem;
     cursor: pointer;
@@ -1081,8 +1082,8 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
 }
 .filter-btn i { font-size: 0.85rem; transition: 0.3s; }
 .filter-btn:hover {
-    color: #0a0a0a;
-    background: rgba(0, 0, 0, 0.04);
+    color: #fe0a0a;
+    background: rgba(11, 0, 0, 0.04);
     transform: translateY(-1px);
 }
 .filter-btn.active {
@@ -1368,7 +1369,7 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
 .btn-purpose {
     background: transparent;
     border: none;
-    color: #64748b;
+    color: #080808;
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
@@ -2910,14 +2911,14 @@ function showPage(pageId) {
 
         // ---- FALLING DUST ----
         minSize: 1.2,             // smallest dust size
-        maxSize: 3.2,             // biggest dust size
-        density: 0.0001,         // dust per pixel² (higher = more)
+        maxSize:3.9,             // biggest dust size
+        density: 0.0006,         // dust per pixel² (higher = more)
         maxParticles: 1,        // hard cap
         minParticles: 0,         // never below this
 
-        speedY: 0.10,             // falling speed
+        speedY: 0.6,             // falling speed
         swayAmount: 0.5,          // side-to-side drift
-        repelRadius: 140,         // cursor influence radius (px)
+        repelRadius: 150,         // cursor influence radius (px)
         repelStrength: 2.2,       // cursor push strength
 
         // ---- DUST SPARKLE GLINT (4-point stars on dust) ----
@@ -2931,7 +2932,7 @@ function showPage(pageId) {
         maxAlpha: 1.0,
 
         // ---- FAIRY SPARKLES (background twinkles) ----
-        fairyCount: 12,           // how many exist at once
+        fairyCount: 16,           // how many exist at once
         fairyMinSize: 0.8,
         fairyMaxSize: 1.2,
         fairyLifetime: 120,       // frames each fairy lives
