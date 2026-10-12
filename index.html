@@ -2427,26 +2427,14 @@ button, a, input, select, textarea {
         </div>
       </div>
 
+ 
       <div class="sub-filters-wrapper" id="subFiltersWrapper">
-        <div class="filter-content" id="filterContent">
-          <div class="sub-filters show" id="branding-sub">
-            <div class="sub-filters-row">
-              <div class="dropdown-wrapper">
-                <button class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
-                  <i class="fas fa-layer-group"></i> <span id="selectedSubFilter">Web/App Development</span>
-                  <i class="fas fa-chevron-down" id="dropdownArrow"></i>
-                </button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                  <button class="sub-btn active" data-subfilter="web-app-dev" onclick="selectSubFilter(this, 'web-app-dev')"><i class="fas fa-code"></i> Web/App Development</button>
-                  <button class="sub-btn" data-subfilter="digital-marketing" onclick="selectSubFilter(this, 'digital-marketing')"><i class="fas fa-chart-line"></i> Digital Marketing</button>
-                  <button class="sub-btn" data-subfilter="graphic-design" onclick="selectSubFilter(this, 'graphic-design')"><i class="fas fa-paint-brush"></i> Graphic Design</button>
-                </div>
-              </div>
-              <button class="process-btn" onclick="showProcessPopup()"><i class="fas fa-route"></i> Our Process</button>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="filter-content" id="filterContent">
+    <!-- Sub-filters removed - will be replaced with 3 new buttons later -->
+  </div>
+</div>
+
+
     </div>
   </section>
 
@@ -2484,9 +2472,8 @@ button, a, input, select, textarea {
     </div>
 
     <div class="product-grid" id="productGrid">
-    <div class="product-card" data-category="branding-hub" data-subcategory="landing-page"><div class="product-img"><img src="https://i.postimg.cc/wBWfsQBv/Soulic-(4)-(1).jpg""></div><div class="product-info"><h3>Landing Page</h3><p>Form + WhatsApp CTA + Analytics. For services and agencies.</p><div class="product-footer"><span class="tag">Landing Page</span><button class="btn-view" onclick="openDetail('landing-page-main')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="landing-page"><div class="product-img"><img src="https://i.postimg.cc/qqqJsjqV/Untitled-design-(10)-(1).jpg" alt=""></div><div class="product-info"><h3>Landing Page Guide</h3><p>Countdown, speakers, registration form with email automation.</p><div class="product-footer"><span class="tag">Landing Page</span><button class="btn-view" onclick="openDetail('landing-page-guide')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="landing-page"><div class="product-img"><img src="https://i.postimg.cc/0yLSC3p7/Untitled-design-(44).png" alt=""></div><div class="product-info"><h3>Premium Pricing</h3><p>For 1 product. Features, testimonials, payment link, FAQ.</p><div class="product-footer"><span class="tag">Landing Page</span><button class="btn-view" onclick="openDetail('landing-premium')">View Details</button></div></div></div>
+    
+  
     <div class="product-card" data-category="branding-hub" data-subcategory="brochure-site"><div class="product-img"><img src="https://i.postimg.cc/mrLrSh1L/6-(3).jpg" alt=""></div><div class="product-info"><h3>Brochure Site</h3><p>Home, About, Services, Products, Contact. SEO ready.</p><div class="product-footer"><span class="tag">Brochure Site</span><button class="btn-view" onclick="openDetail('brochure-site-main')">Website Example</button></div></div></div>
     <div class="product-card" data-category="branding-hub" data-subcategory="brochure-site"><div class="product-img"><img src="https://i.postimg.cc/zvvzC0vr/Untitled-design-(9)-(1).jpg" alt=""></div><div class="product-info"><h3>Brochure Guide</h3><p>Gallery, client testimonials, service pricing section.</p><div class="product-footer"><span class="tag">Brochure Site</span><button class="btn-view" onclick="openDetail('brochure-guide')">View Details</button></div></div></div>
     <div class="product-card" data-category="branding-hub" data-subcategory="brochure-site"><div class="product-img"><img src="https://i.postimg.cc/pLgjB7Dz/Untitled-design-(45).png" alt=""></div><div class="product-info"><h3>Premium Pricing</h3><p>Menu, gallery, location map, reservation form.</p><div class="product-footer"><span class="tag">Brochure Site</span><button class="btn-view" onclick="openDetail('brochure-premium')">View Details</button></div></div></div>
@@ -3278,32 +3265,11 @@ if (menuToggle) {
 // ============================================
 // DROPDOWN FUNCTIONS
 // ============================================
+// ============================================
+// FILTER STATE
+// ============================================
 let currentMain = 'branding-hub';
-let currentSub = 'web-app-dev';
-
-function toggleDropdown() {
-    const menu = document.getElementById('dropdownMenu');
-    const btn = document.getElementById('dropdownBtn');
-    menu.classList.toggle('open');
-    btn.classList.toggle('open');
-}
-
-function selectSubFilter(button, value) {
-    document.querySelectorAll('.dropdown-menu .sub-btn').forEach(b => b.classList.remove('active'));
-    button.classList.add('active');
-    document.getElementById('selectedSubFilter').textContent = button.textContent.trim();
-    document.getElementById('dropdownMenu').classList.remove('open');
-    document.getElementById('dropdownBtn').classList.remove('open');
-    currentSub = value;
-    if (currentSub === 'web-app-dev') {
-        document.getElementById('websiteExamples').classList.add('show');
-        document.getElementById('productGrid').style.display = 'grid';
-    } else {
-        document.getElementById('websiteExamples').classList.remove('show');
-        document.getElementById('productGrid').style.display = 'grid';
-    }
-    filterProducts();
-}
+let currentSub = 'landing-page'; // default sub for Revenue Hub
 
 function showProcessPopup() {
     document.getElementById('processOverlay').classList.add('active');
@@ -3344,25 +3310,21 @@ filterBtns.forEach(btn => {
         this.classList.add('active');
         currentMain = this.dataset.filter;
 
-        const subElement = document.getElementById('branding-sub');
+        // Show website examples scroll only on Revenue Hub
         if (currentMain === 'branding-hub') {
-            subElement.classList.add('show');
-            if (currentSub !== 'web-app-dev') {
-                currentSub = 'web-app-dev';
-                document.querySelectorAll('.dropdown-menu .sub-btn').forEach(b => b.classList.remove('active'));
-                document.querySelector('.dropdown-menu .sub-btn[data-subfilter="web-app-dev"]').classList.add('active');
-                document.getElementById('selectedSubFilter').textContent = 'Web/App Development';
-            }
             document.getElementById('websiteExamples').classList.add('show');
-            document.getElementById('productGrid').style.display = 'grid';
+            if (currentSub === 'landing-page' || !currentSub) {
+                currentSub = 'landing-page';
+            }
         } else {
-            subElement.classList.remove('show');
             document.getElementById('websiteExamples').classList.remove('show');
-            document.getElementById('productGrid').style.display = 'grid';
         }
+
+        document.getElementById('productGrid').style.display = 'grid';
         filterProducts();
     });
 });
+
 
 function filterProducts() {
     productCards.forEach(card => {
