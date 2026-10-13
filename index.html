@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1106,6 +1104,182 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
     flex-shrink: 0;
 }
 
+/* ===== HUB DEDICATED BUTTONS (LIQUID ANIMATED) ===== */
+.hub-buttons-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+    padding: 0 10px;
+    min-height: 0;
+}
+
+.hub-btn {
+    position: relative;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 60px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #ffffff;
+    cursor: pointer;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.18);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    z-index: 1;
+    white-space: nowrap;
+    animation: hubBtnAppear 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hub-btn.visible {
+    display: inline-flex;
+}
+
+@keyframes hubBtnAppear {
+    from { opacity: 0; transform: translateY(10px) scale(0.92); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hub-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(120deg, #ff6b00, #ff1493, #2563eb, #ff6b00);
+    background-size: 400% 400%;
+    animation: liquidFlow 6s ease infinite;
+}
+
+.hub-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.35), transparent 45%),
+                radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.2), transparent 45%);
+    opacity: 0.4;
+    animation: liquidPulse 3s ease-in-out infinite;
+    mix-blend-mode: overlay;
+}
+
+.hub-btn .liquid-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.55;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.hub-btn .blob-1 {
+    width: 80px; height: 80px;
+    background: #ff6b00;
+    top: -20px; left: -20px;
+    animation: blobMove1 5s ease-in-out infinite;
+}
+.hub-btn .blob-2 {
+    width: 70px; height: 70px;
+    background: #ff1493;
+    bottom: -20px; right: -10px;
+    animation: blobMove2 6s ease-in-out infinite;
+}
+.hub-btn .blob-3 {
+    width: 60px; height: 60px;
+    background: #2563eb;
+    top: 50%; left: 45%;
+    animation: blobMove3 7s ease-in-out infinite;
+}
+
+@keyframes liquidFlow {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes liquidPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%      { opacity: 0.7; transform: scale(1.08); }
+}
+
+@keyframes blobMove1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(20px, 15px) scale(1.2); }
+}
+@keyframes blobMove2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-25px, -15px) scale(1.15); }
+}
+@keyframes blobMove3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-15px, 20px) scale(1.25); }
+}
+
+.hub-btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 14px 40px rgba(255, 107, 0, 0.45);
+}
+
+.hub-btn:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.hub-btn .hub-btn-icon {
+    font-size: 1rem;
+    z-index: 2;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.25));
+}
+
+.hub-btn .hub-btn-text {
+    z-index: 2;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.25));
+}
+
+.hub-btn[data-hub="revenue"]  { box-shadow: 0 6px 25px rgba(255, 107, 0, 0.35); }
+.hub-btn[data-hub="backend"]  { box-shadow: 0 6px 25px rgba(37, 99, 235, 0.35); }
+.hub-btn[data-hub="booking"]  { box-shadow: 0 6px 25px rgba(255, 20, 147, 0.35); }
+
+@media (max-width: 768px) {
+    .hub-buttons-row {
+        gap: 10px;
+        margin-top: 14px;
+    }
+    .hub-btn {
+        padding: 11px 22px;
+        font-size: 0.8rem;
+        gap: 7px;
+    }
+    .hub-btn .hub-btn-icon { font-size: 0.85rem; }
+}
+
+@media (max-width: 480px) {
+    .hub-buttons-row {
+        gap: 8px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: center;
+        padding: 4px 10px 8px;
+        scrollbar-width: none;
+    }
+    .hub-buttons-row::-webkit-scrollbar { display: none; }
+    .hub-btn {
+        padding: 10px 18px;
+        font-size: 0.72rem;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+    .hub-btn .hub-btn-icon { font-size: 0.75rem; }
+}
+
 /* ===== SUB FILTERS WRAPPER ===== */
 .sub-filters-wrapper {
     transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease;
@@ -1120,107 +1294,7 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
     overflow: visible;
 }
 
-/* ===== DROPDOWN STYLES ===== */
-.dropdown-wrapper {
-    position: relative;
-    display: inline-block;
-}
-.dropdown-btn {
-    background: linear-gradient(135deg, #040200, #12000a, #00040b);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.85rem;
-    font-family: 'Inter', sans-serif;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-}
-.dropdown-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 20px rgba(255, 107, 0, 0.3);
-}
-.dropdown-btn i { transition: transform 0.3s ease; }
-.dropdown-btn.open i { transform: rotate(180deg); }
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    padding: 8px;
-    min-width: 220px;
-    z-index: 1000;
-    border: 1px solid rgba(0,0,0,0.05);
-    animation: dropDown 0.3s ease;
-}
-.dropdown-menu.open { display: block; }
-@keyframes dropDown {
-    from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-.dropdown-menu .sub-btn {
-    display: block;
-    width: 100%;
-    text-align: left;
-    border: none;
-    background: transparent;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s ease;
-    color: #1e293b;
-}
-.dropdown-menu .sub-btn:hover { background: rgba(255, 107, 0, 0.06); }
-.dropdown-menu .sub-btn.active {
-    background: linear-gradient(135deg, #ff6b00, #ff1493, #2563eb);
-    color: #fff;
-}
-.dropdown-menu .sub-btn i { margin-right: 8px; width: 18px; }
-
-.sub-filters { display: none; }
-.sub-filters.show { display: block; }
-
-.sub-filters-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 14px;
-    flex-wrap: wrap;
-}
-
-.process-btn {
-    background: linear-gradient(135deg, #150901, #040002, #00050f);
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.85rem;
-    font-family: 'Inter', sans-serif;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-}
-.process-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 20px rgba(255, 107, 0, 0.3);
-}
-
-/* ===== WEBSITE EXAMPLES ===== */
+/* ===== WEBSITE EXAMPLES (All Hubs) ===== */
 .website-examples-section {
     padding: 30px 0 50px;
     margin-top: -80px;
@@ -1421,43 +1495,6 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
     50% { transform: translateX(6px); opacity: 1; }
 }
 
-/* ===== PRODUCT GRID ===== */
-.product-grid { 
-    display: none;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-    gap: 30px; 
-    margin-top: 40px;
-}
-.product-grid.show { display: grid; }
-.product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: 0.3s; }
-.product-card:hover { transform: translateY(-6px); }
-.product-img img { width: 100%; height: 240px; object-fit: cover; }
-.product-info { padding: 20px; }
-.product-info h3 { font-size: 1.2rem; margin-bottom: 8px; color: #0f172a; }
-.product-info p { font-size: 0.9rem; color: #64748b; margin-bottom: 15px; }
-.product-footer { display: flex; justify-content: space-between; align-items: center; }
-.tag { 
-    background: linear-gradient(135deg, #0e0e0e, #100f0f, #0e0e0e);
-    color: #fff; 
-    padding: 5px 12px; 
-    border-radius: 20px; 
-    font-size: 0.8rem; 
-    font-weight: 600; 
-}
-.btn-view { 
-    background: linear-gradient(135deg, #ff6b00, #ff1493, #2563eb);
-    color: #fff; 
-    padding: 8px 16px; 
-    border-radius: 6px; 
-    text-decoration: none; 
-    font-size: 0.9rem; 
-    font-weight: 600; 
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-}
-.btn-view:hover { opacity: 0.9; transform: translateY(-2px); }
-
 /* ===== PURPOSE POPUP ===== */
 .purpose-overlay {
     display: none;
@@ -1524,150 +1561,6 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(40px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* ===== DETAIL PAGE ===== */
-.detail-page {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-    background: #faf8f5;
-}
-.detail-page.active { display: block; }
-.back-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 999;
-    background: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: #0f172a;
-    transition: 0.3s;
-    font-family: 'Inter', sans-serif;
-}
-.back-btn:hover { transform: translateX(-5px); }
-.toggle-wrapper {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    background: rgba(255,255,255,0.95);
-    padding: 12px 25px;
-    border-radius: 50px;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    border: 1px solid rgba(0,0,0,0.05);
-}
-.toggle-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    transition: 0.3s;
-    cursor: default;
-}
-.toggle-label.active { color: #2e7d32; }
-.toggle-label:not(.active) { color: #94a3b8; }
-.toggle-switch {
-    width: 60px;
-    height: 30px;
-    background: #e2e8f0;
-    border-radius: 30px;
-    cursor: pointer;
-    position: relative;
-    transition: 0.4s;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-    flex-shrink: 0;
-}
-.toggle-switch.active { background: linear-gradient(135deg, #ff6b00, #ff1493, #2563eb); }
-.toggle-switch .slider {
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 24px;
-    height: 24px;
-    background: white;
-    border-radius: 50%;
-    transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-.toggle-switch.active .slider { left: 33px; }
-.iframe-container {
-    width: 100%;
-    height: 100vh;
-    padding-top: 80px;
-    position: relative;
-    background: #faf8f5;
-}
-.iframe-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    position: absolute;
-    top: 80px;
-    left: 0;
-    transition: opacity 0.3s ease;
-}
-.iframe-container iframe.hidden { opacity: 0; pointer-events: none; }
-.iframe-container iframe.visible { opacity: 1; pointer-events: auto; }
-.product-info-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(0,0,0,0.05);
-    z-index: 999;
-}
-.product-info-bar .name { font-weight: 700; font-size:1.1rem; }
-.product-info-bar .tag { 
-    background: linear-gradient(135deg, #ff6b00, #ff1493, #2563eb);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size:0.8rem;
-    font-weight:600;
-}
-.loading-spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    display: none;
-}
-.loading-spinner.show { display: block; }
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 4px solid #e2e8f0;
-    border-top: 4px solid #ff6b00;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
 /* ===== CONTACT PAGE - LEAD FORM STYLES ===== */
@@ -2051,9 +1944,6 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
   .filter-btn { padding: 6px 14px; font-size: 0.75rem; }
   .filter-btn i { font-size: 0.75rem; }
   .filter-divider { height: 20px; }
-  .dropdown-btn { padding: 6px 14px; font-size: 0.75rem; }
-  .process-btn { padding: 6px 14px; font-size: 0.75rem; }
-  .sub-filters-row { gap: 12px; }
   .example-box { min-width: 260px; max-width: 340px; }
   .corner-badge { top: 80px; right: 12px; }
   .corner-badge .shield-icon { width: 40px; height: 40px; font-size: 1.1rem; }
@@ -2087,8 +1977,6 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
   .filter-btn { padding: 5px 10px; font-size: 0.65rem; }
   .filter-btn i { font-size: 0.65rem; }
   .filter-divider { height: 16px; margin: 0 2px; }
-  .dropdown-btn { padding: 5px 10px; font-size: 0.65rem; }
-  .process-btn { padding: 5px 10px; font-size: 0.65rem; }
   .sub-filters-row { gap: 10px; }
   .example-box { min-width: 240px; max-width: 300px; }
   .corner-badge { top: 70px; right: 10px; }
@@ -2162,7 +2050,6 @@ h2 { text-align: center; font-size: 2.2rem; margin-bottom: 15px; }
         right: 10px;
     }
 }
-
 
 /* ===== DISABLE ZOOM ===== */
 html, body {
@@ -2427,30 +2314,44 @@ button, a, input, select, textarea {
         </div>
       </div>
 
+      <!-- ===== DEDICATED HUB BUTTONS (LIQUID ANIMATED, SHOW ONLY ACTIVE) ===== -->
+      <div class="hub-buttons-row" id="hubButtonsRow">
+        <button class="hub-btn" data-hub="revenue" onclick="window.open('https://your-revenue-hub-url.com', '_blank')">
+          <span class="liquid-blob blob-1"></span>
+          <span class="liquid-blob blob-2"></span>
+          <span class="liquid-blob blob-3"></span>
+          <i class="fas fa-globe hub-btn-icon"></i>
+          <span class="hub-btn-text">See how Revenue Hub works!</span>
+        </button>
+
+      <button class="hub-btn" data-hub="backend" onclick="window.open('https://your-backend-hub-url.com', '_blank')">
+          <span class="liquid-blob blob-1"></span>
+          <span class="liquid-blob blob-2"></span>
+          <span class="liquid-blob blob-3"></span>
+          <i class="fas fa-server hub-btn-icon"></i>
+          <span class="hub-btn-text">Learn about Backend Hub. </span>
+        </button>
+
+        <button class="hub-btn" data-hub="booking" onclick="window.open('https://your-booking-hub-url.com', '_blank')">
+          <span class="liquid-blob blob-1"></span>
+          <span class="liquid-blob blob-2"></span>
+          <span class="liquid-blob blob-3"></span>
+          <i class="fas fa-calendar-check hub-btn-icon"></i>
+          <span class="hub-btn-text">What is Booking Hub?</span>
+        </button>
+      </div>
+
       <div class="sub-filters-wrapper" id="subFiltersWrapper">
         <div class="filter-content" id="filterContent">
-          <div class="sub-filters show" id="branding-sub">
-            <div class="sub-filters-row">
-              <div class="dropdown-wrapper">
-                <button class="dropdown-btn" id="dropdownBtn" onclick="toggleDropdown()">
-                  <i class="fas fa-layer-group"></i> <span id="selectedSubFilter">Web/App Development</span>
-                  <i class="fas fa-chevron-down" id="dropdownArrow"></i>
-                </button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                  <button class="sub-btn active" data-subfilter="web-app-dev" onclick="selectSubFilter(this, 'web-app-dev')"><i class="fas fa-code"></i> Web/App Development</button>
-                  <button class="sub-btn" data-subfilter="digital-marketing" onclick="selectSubFilter(this, 'digital-marketing')"><i class="fas fa-chart-line"></i> Digital Marketing</button>
-                  <button class="sub-btn" data-subfilter="graphic-design" onclick="selectSubFilter(this, 'graphic-design')"><i class="fas fa-paint-brush"></i> Graphic Design</button>
-                </div>
-              </div>
-              <button class="process-btn" onclick="showProcessPopup()"><i class="fas fa-route"></i> Our Process</button>
-            </div>
-          </div>
+          <!-- Sub-filters removed -->
         </div>
       </div>
     </div>
   </section>
 
   <section class="section"><div class="container">
+
+    <!-- ===== REVENUE HUB SCROLLER ===== -->
     <div class="website-examples-section show" id="websiteExamples">
       <div class="example-info-box">
         <div class="info-content"><div class="icon-wrap"><i class="fas fa-rocket"></i></div><div class="text"><h4>Browse Our Website Examples</h4><p>Explore 4 different website types — each designed to meet specific business needs</p></div></div>
@@ -2483,31 +2384,135 @@ button, a, input, select, textarea {
       <div class="scroll-hint"><i class="fas fa-chevron-left"></i> Scroll to browse examples <i class="fas fa-chevron-right"></i></div>
     </div>
 
-    <div class="product-grid" id="productGrid">
-    <div class="product-card" data-category="branding-hub" data-subcategory="landing-page"><div class="product-img"><img src="https://i.postimg.cc/wBWfsQBv/Soulic-(4)-(1).jpg""></div><div class="product-info"><h3>Landing Page</h3><p>Form + WhatsApp CTA + Analytics. For services and agencies.</p><div class="product-footer"><span class="tag">Landing Page</span><button class="btn-view" onclick="openDetail('landing-page-main')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="landing-page"><div class="product-img"><img src="https://i.postimg.cc/qqqJsjqV/Untitled-design-(10)-(1).jpg" alt=""></div><div class="product-info"><h3>Landing Page Guide</h3><p>Countdown, speakers, registration form with email automation.</p><div class="product-footer"><span class="tag">Landing Page</span><button class="btn-view" onclick="openDetail('landing-page-guide')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="landing-page"><div class="product-img"><img src="https://i.postimg.cc/0yLSC3p7/Untitled-design-(44).png" alt=""></div><div class="product-info"><h3>Premium Pricing</h3><p>For 1 product. Features, testimonials, payment link, FAQ.</p><div class="product-footer"><span class="tag">Landing Page</span><button class="btn-view" onclick="openDetail('landing-premium')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="brochure-site"><div class="product-img"><img src="https://i.postimg.cc/mrLrSh1L/6-(3).jpg" alt=""></div><div class="product-info"><h3>Brochure Site</h3><p>Home, About, Services, Products, Contact. SEO ready.</p><div class="product-footer"><span class="tag">Brochure Site</span><button class="btn-view" onclick="openDetail('brochure-site-main')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="brochure-site"><div class="product-img"><img src="https://i.postimg.cc/zvvzC0vr/Untitled-design-(9)-(1).jpg" alt=""></div><div class="product-info"><h3>Brochure Guide</h3><p>Gallery, client testimonials, service pricing section.</p><div class="product-footer"><span class="tag">Brochure Site</span><button class="btn-view" onclick="openDetail('brochure-guide')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="brochure-site"><div class="product-img"><img src="https://i.postimg.cc/pLgjB7Dz/Untitled-design-(45).png" alt=""></div><div class="product-info"><h3>Premium Pricing</h3><p>Menu, gallery, location map, reservation form.</p><div class="product-footer"><span class="tag">Brochure Site</span><button class="btn-view" onclick="openDetail('brochure-premium')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="blog-platform"><div class="product-img"><img src="https://i.postimg.cc/hv3BsKwn/Soulic-(1).jpg" alt=""></div><div class="product-info"><h3>Blog Platform</h3><p>WordPress blog with categories, search, newsletter.</p><div class="product-footer"><span class="tag">Blog</span><button class="btn-view" onclick="openDetail('blog-platform-main')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="blog-platform"><div class="product-img"><img src="https://i.postimg.cc/Yq4z58hx/brochure-website-(3).png" alt=""></div><div class="product-info"><h3>Blog Guide</h3><p>Multi-author blog with featured posts and ad spaces.</p><div class="product-footer"><span class="tag">Blog</span><button class="btn-view" onclick="openDetail('blog-guide')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="blog-platform"><div class="product-img"><img src="https://i.postimg.cc/dVzC9X8C/Untitled-design-(46).png" alt=""></div><div class="product-info"><h3>Premium Pricing</h3><p>Clean design for writers. Easy publishing + social share.</p><div class="product-footer"><span class="tag">Blog</span><button class="btn-view" onclick="openDetail('blog-premium')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="ecommerce-store"><div class="product-img"><img src="https://i.postimg.cc/Ls9sVhgh/8-(2).jpg" alt=""></div><div class="product-info"><h3>E-Commerce Store</h3><p>Catalog, cart, payment gateway, order management.</p><div class="product-footer"><span class="tag">E-Commerce</span><button class="btn-view" onclick="openDetail('ecommerce-store-main')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="ecommerce-store"><div class="product-img"><img src="https://i.postimg.cc/7Z0xnCHH/Untitled-design-(10).jpg" alt=""></div><div class="product-info"><h3>E-Commerce Guide</h3><p>Ready-to-sell store with 20 products and shipping setup.</p><div class="product-footer"><span class="tag">E-Commerce</span><button class="btn-view" onclick="openDetail('ecommerce-guide')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="ecommerce-store"><div class="product-img"><img src="https://i.postimg.cc/HnpXyybh/Untitled-design-(47).png" alt=""></div><div class="product-info"><h3>Premium Pricing</h3><p>1 product store with upsells and COD payment option.</p><div class="product-footer"><span class="tag">E-Commerce</span><button class="btn-view" onclick="openDetail('ecommerce-premium')">View Details</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="digital-marketing"><div class="product-img"><img src="https://i.postimg.cc/8zf7NhGD/Social-Media-Design.jpg" alt="Marketing Dashboard"></div><div class="product-info"><h3>Digital Marketing</h3><p>Real-time analytics, team performance tracking, and project management tools.</p><div class="product-footer"><span class="tag">Digital Marketing</span><button class="btn-view" onclick="openDetail('marketing-dashboard')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="branding-hub" data-subcategory="graphic-design"><div class="product-img"><img src="https://i.postimg.cc/B69kCJy3/Colorful-paintbrush-showing-graphic-design-minimalistic-(1).jpg"></div><div class="product-info"><h3>Design Services</h3><p>Custom web development, maintenance, and support tailored to your business needs.</p><div class="product-footer"><span class="tag">Graphic Design</span><button class="btn-view" onclick="openDetail('design-services')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="booking-hub" data-subcategory="seo-content"><div class="product-img"><img src="https://i.postimg.cc/HkcNTbgS/appointment-apps-5-3-aspect-ratio-minimalistic-white-background-Image.png" alt=""></div><div class="product-info"><h3>Appointment System</h3><p>Clinic,Doctor's Appointment etc.</p><div class="product-footer"><span class="tag">Booking Hub</span><button class="btn-view" onclick="openDetail('seo-content')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="booking-hub" data-subcategory="appointment-scheduler"><div class="product-img"><img src="https://i.postimg.cc/KYDcLpqq/Booking-app-concept-for-appointments.jpg" alt="Appointment Booking"></div><div class="product-info"><h3>Reservation System</h3><p>Smart calendar booking with automated reminders, staff assignment, and easy rescheduling.</p><div class="product-footer"><span class="tag">Booking Hub</span><button class="btn-view" onclick="openDetail('appointment-scheduler')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="booking-hub" data-subcategory="resource-booking"><div class="product-img"><img src="https://i.postimg.cc/wTG1CwCp/real-UI-UX-Design-images.jpg" alt="Reservation"></div><div class="product-info"><h3>Resource Booking</h3><p>Manage meeting rooms, equipment, and shared spaces with conflict-free scheduling and analytics.</p><div class="product-footer"><span class="tag">Booking Hub</span><button class="btn-view" onclick="openDetail('resource-booking')">View Details</button></div></div></div>
-    <div class="product-card" data-category="independent-services" data-subcategory="brand-identity-kit"><div class="product-img"><img src="https://i.postimg.cc/8zf7NhGD/Social-Media-Design.jpg="></div><div class="product-info"><h3>Digital Marketing</h3><p>Logo, color palette, fonts, business card, letterhead, social templates.</p><div class="product-footer"><span class="tag">Graphic Design</span><button class="btn-view" onclick="openDetail('brand-identity-kit')">View Details</button></div></div></div>
-    <div class="product-card" data-category="independent-services" data-subcategory="motion-graphics"><div class="product-img"><img src="https://i.postimg.cc/SNt50DwD/inventory-management-(2).png" alt="Motion Graphics"></div><div class="product-info"><h3>Web Development</h3><p>Animated explainers, social media videos, and motion branding that captivates your audience.</p><div class="product-footer"><span class="tag">Independent</span><button class="btn-view" onclick="openDetail('motion-graphics')">View Details</button></div></div></div>
-    <div class="product-card" data-category="independent-services" data-subcategory="ui-ux-design"><div class="product-img"><img src="https://i.postimg.cc/0QXChYxY/Colorful-paintbrush-showing-graphic-design-minimalistic-(1).jpg" alt="UI/UX Design"></div><div class="product-info"><h3>Graphic Design</h3><p>User-centric design for websites and apps. Wireframes, prototyping, and user testing included.</p><div class="product-footer"><span class="tag">Independent</span><button class="btn-view" onclick="openDetail('ui-ux-design')">View Details</button></div></div></div>
-    <div class="product-card" data-category="backend-hub" data-subcategory="inventory-system"><div class="product-img"><img src="https://i.postimg.cc/g0rD1Ct7/inventory-management.png" alt="Inventory System"></div><div class="product-info"><h3>Inventory System</h3><p>Complete inventory tracking and management system for your business.</p><div class="product-footer"><span class="tag">Backend Hub</span><button class="btn-view" onclick="openDetail('inventory-system')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="backend-hub" data-subcategory="finance-system"><div class="product-img"><img src="https://i.postimg.cc/Zq0cXGDk/Finance-managment.png" alt="Finance System"></div><div class="product-info"><h3>Finance System</h3><p>Complete finance management system with reporting and analytics.</p><div class="product-footer"><span class="tag">Backend Hub</span><button class="btn-view" onclick="openDetail('finance-system')">Website Example</button></div></div></div>
-    <div class="product-card" data-category="backend-hub" data-subcategory="complete-system"><div class="product-img"><img src="https://i.postimg.cc/2SkT7bQn/complete-management-system.png" alt="Complete System"></div><div class="product-info"><h3>Complete System</h3><p>All-in-one management solution for your entire business operations.</p><div class="product-footer"><span class="tag">Backend Hub</span><button class="btn-view" onclick="openDetail('complete-system')">Website Example</button></div></div></div>
+    <!-- ===== BACKEND HUB SCROLLER ===== -->
+    <div class="website-examples-section" id="backendExamples">
+      <div class="example-info-box">
+        <div class="info-content"><div class="icon-wrap"><i class="fas fa-server"></i></div><div class="text"><h4>Browse Our Backend Systems</h4><p>Explore management systems built to run your business operations</p></div></div>
+        <div class="info-actions">
+          <button class="btn-small primary" onclick="document.getElementById('backendScroll').scrollLeft = 0;"><i class="fas fa-arrow-left"></i> Scroll</button>
+          <button class="btn-small outline" onclick="showPage('contact')">Get a Quote <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="examples-scroll-wrapper" id="backendScroll">
+        <div class="examples-container">
+          <div class="example-box" data-category="inventory-system">
+            <div class="box-image"><img src="https://i.postimg.cc/g0rD1Ct7/inventory-management.png" alt="Inventory System"><span class="box-tag">Inventory</span></div>
+            <div class="box-content"><h3>Inventory System</h3><p>Complete inventory tracking and management system for your business.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('backend')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('inventory-system')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="example-box" data-category="finance-system">
+            <div class="box-image"><img src="https://i.postimg.cc/Zq0cXGDk/Finance-managment.png" alt="Finance System"><span class="box-tag">Finance</span></div>
+            <div class="box-content"><h3>Finance System</h3><p>Complete finance management system with reporting and analytics.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('backend')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('finance-system')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="example-box" data-category="complete-system">
+            <div class="box-image"><img src="https://i.postimg.cc/2SkT7bQn/complete-management-system.png" alt="Complete System"><span class="box-tag">Complete</span></div>
+            <div class="box-content"><h3>Complete System</h3><p>All-in-one management solution for your entire business operations.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('backend')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('complete-system')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint"><i class="fas fa-chevron-left"></i> Scroll to browse backend systems <i class="fas fa-chevron-right"></i></div>
     </div>
+
+    <!-- ===== BOOKING HUB SCROLLER ===== -->
+    <div class="website-examples-section" id="bookingExamples">
+      <div class="example-info-box">
+        <div class="info-content"><div class="icon-wrap"><i class="fas fa-calendar-check"></i></div><div class="text"><h4>Browse Our Booking Systems</h4><p>Explore reservation and appointment platforms for your business</p></div></div>
+        <div class="info-actions">
+          <button class="btn-small primary" onclick="document.getElementById('bookingScroll').scrollLeft = 0;"><i class="fas fa-arrow-left"></i> Scroll</button>
+          <button class="btn-small outline" onclick="showPage('contact')">Get a Quote <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="examples-scroll-wrapper" id="bookingScroll">
+        <div class="examples-container">
+          <div class="example-box" data-category="seo-content">
+            <div class="box-image"><img src="https://i.postimg.cc/HkcNTbgS/appointment-apps-5-3-aspect-ratio-minimalistic-white-background-Image.png" alt="Appointment System"><span class="box-tag">Appointment</span></div>
+            <div class="box-content"><h3>Appointment System</h3><p>Clinic, Doctor's Appointment etc.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('booking')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('seo-content')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="example-box" data-category="appointment-scheduler">
+            <div class="box-image"><img src="https://i.postimg.cc/KYDcLpqq/Booking-app-concept-for-appointments.jpg" alt="Reservation System"><span class="box-tag">Reservation</span></div>
+            <div class="box-content"><h3>Reservation System</h3><p>Smart calendar booking with automated reminders, staff assignment, and easy rescheduling.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('booking')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('appointment-scheduler')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="example-box" data-category="resource-booking">
+            <div class="box-image"><img src="https://i.postimg.cc/wTG1CwCp/real-UI-UX-Design-images.jpg" alt="Resource Booking"><span class="box-tag">Resource</span></div>
+            <div class="box-content"><h3>Resource Booking</h3><p>Manage meeting rooms, equipment, and shared spaces with conflict-free scheduling and analytics.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('booking')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('resource-booking')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint"><i class="fas fa-chevron-left"></i> Scroll to browse booking systems <i class="fas fa-chevron-right"></i></div>
+    </div>
+
+    <!-- ===== INDEPENDENT SERVICES SCROLLER ===== -->
+    <div class="website-examples-section" id="independentExamples">
+      <div class="example-info-box">
+        <div class="info-content"><div class="icon-wrap"><i class="fas fa-paint-brush"></i></div><div class="text"><h4>Browse Our Independent Services</h4><p>Explore standalone design, development, and marketing services</p></div></div>
+        <div class="info-actions">
+          <button class="btn-small primary" onclick="document.getElementById('independentScroll').scrollLeft = 0;"><i class="fas fa-arrow-left"></i> Scroll</button>
+          <button class="btn-small outline" onclick="showPage('contact')">Get a Quote <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+      <div class="examples-scroll-wrapper" id="independentScroll">
+        <div class="examples-container">
+          <div class="example-box" data-category="brand-identity-kit">
+            <div class="box-image"><img src="https://i.postimg.cc/8zf7NhGD/Social-Media-Design.jpg" alt="Digital Marketing"><span class="box-tag">Digital Marketing</span></div>
+            <div class="box-content"><h3>Digital Marketing</h3><p>Logo, color palette, fonts, business card, letterhead, social templates.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('brand-identity-kit')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="example-box" data-category="motion-graphics">
+            <div class="box-image"><img src="https://i.postimg.cc/SNt50DwD/inventory-management-(2).png" alt="Web Development"><span class="box-tag">Web Development</span></div>
+            <div class="box-content"><h3>Web Development</h3><p>Animated explainers, social media videos, and motion branding that captivates your audience.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('motion-graphics')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="example-box" data-category="ui-ux-design">
+            <div class="box-image"><img src="https://i.postimg.cc/0QXChYxY/Colorful-paintbrush-showing-graphic-design-minimalistic-(1).jpg" alt="Graphic Design"><span class="box-tag">Graphic Design</span></div>
+            <div class="box-content"><h3>Graphic Design</h3><p>User-centric design for websites and apps. Wireframes, prototyping, and user testing included.</p>
+              <div class="box-footer">
+                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-view" onclick="openDetail('ui-ux-design')">Examples <i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint"><i class="fas fa-chevron-left"></i> Scroll to browse independent services <i class="fas fa-chevron-right"></i></div>
+    </div>
+
   </div></section>
 </section>
 
@@ -2732,25 +2737,6 @@ button, a, input, select, textarea {
   </div>
 </section>
 
-<!-- ===== DETAIL PAGE ===== -->
-<div class="detail-page" id="detailPage">
-    <div class="loading-spinner" id="loadingSpinner"><div class="spinner"></div></div>
-    <button class="back-btn" onclick="closeDetail()">← Back to Products</button>
-    <div class="toggle-wrapper" id="toggleWrapper">
-        <span class="toggle-label active" id="labelMin">🌿 Minimalistic</span>
-        <div class="toggle-switch" id="toggleTrack" onclick="toggleWebsite()"><div class="slider" id="toggleDot"></div></div>
-        <span class="toggle-label" id="labelArt">🎨 Artistic</span>
-    </div>
-    <div class="iframe-container">
-        <iframe id="minimalFrame" class="visible" src=""></iframe>
-        <iframe id="artisticFrame" class="hidden" src=""></iframe>
-    </div>
-    <div class="product-info-bar">
-        <span class="name" id="productName">Product Name</span>
-        <span class="tag" id="productTag">Category</span>
-    </div>
-</div>
-
 <footer><div class="container"><p>© 2026 The Artistic Unity. All Rights Reserved.</p></div></footer>
 
 <!-- ===== PURPOSE POPUP ===== -->
@@ -2792,7 +2778,6 @@ function showPage(pageId) {
   const targetPage = document.getElementById(pageId);
   if (targetPage) targetPage.classList.add('active');
 
-  // Toggle dust canvas: hidden on home, shown on other pages
   if (window.__dust) {
     if (pageId === 'home') window.__dust.hide();
     else window.__dust.show();
@@ -2881,11 +2866,6 @@ function showPage(pageId) {
     animate();
 })();
 
-
-
-
-
-
 // ============================================
 // DARK FALLING DUST + FAIRY SPARKLES
 // ============================================
@@ -2899,48 +2879,31 @@ function showPage(pageId) {
     const mouse = { x: -9999, y: -9999, active: false };
     let raf = null;
 
-    // ============================================================
-    //   EDIT EVERYTHING HERE — change numbers, save, refresh
-    // ============================================================
     const CONFIG = {
-
-        // ---- BACKGROUND ----
-        // null = canvas stays transparent (your page bg shows)
-        // '#05060d' = canvas paints dark navy backdrop
         backgroundColor: '#000000',
-
-        // ---- FALLING DUST ----
-        minSize: 1.2,             // smallest dust size
-        maxSize:3.9,             // biggest dust size
-        density: 0.0006,         // dust per pixel² (higher = more)
-        maxParticles: 1,        // hard cap
-        minParticles: 0,         // never below this
-
-        speedY: 0.6,             // falling speed
-        swayAmount: 0.5,          // side-to-side drift
-        repelRadius: 150,         // cursor influence radius (px)
-        repelStrength: 2.2,       // cursor push strength
-
-        // ---- DUST SPARKLE GLINT (4-point stars on dust) ----
-        sparkleCycle: 220,        // higher = rarer, lower = more frequent
-        flashFrames: 19,          // how long the glint lasts
-        starMultiplier: 7,        // ray length
-        glowBlur: 22,             // soft halo around glint
-        whiteCore: true,          // true = white flash, false = colored
-
-        minAlpha: 0.6,            // dust brightness range
+        minSize: 1.2,
+        maxSize: 3.9,
+        density: 0.0006,
+        maxParticles: 1,
+        minParticles: 0,
+        speedY: 0.6,
+        swayAmount: 0.5,
+        repelRadius: 150,
+        repelStrength: 2.2,
+        sparkleCycle: 220,
+        flashFrames: 19,
+        starMultiplier: 7,
+        glowBlur: 22,
+        whiteCore: true,
+        minAlpha: 0.6,
         maxAlpha: 1.0,
-
-        // ---- FAIRY SPARKLES (background twinkles) ----
-        fairyCount: 16,           // how many exist at once
+        fairyCount: 16,
         fairyMinSize: 0.8,
         fairyMaxSize: 1.2,
-        fairyLifetime: 120,       // frames each fairy lives
-        fairyTravel: 0.2,         // drift speed
-        fairyStarSize: 6,         // ray length for the 4-point star
-        fairyGlowBlur: 14,        // halo strength
-
-        // ---- DUST COLORS ----
+        fairyLifetime: 120,
+        fairyTravel: 0.2,
+        fairyStarSize: 6,
+        fairyGlowBlur: 14,
         colors: [
             'rgba(120, 180, 255, 0.95)',
             'rgba(255, 170, 90, 0.95)',
@@ -2949,8 +2912,6 @@ function showPage(pageId) {
             'rgba(190, 160, 255, 0.95)',
             'rgba(255, 255, 255, 0.95)'
         ],
-
-        // ---- FAIRY COLORS ----
         fairyColors: [
             'rgba(255, 255, 255, 1)',
             'rgba(200, 225, 255, 1)',
@@ -2959,7 +2920,6 @@ function showPage(pageId) {
             'rgba(200, 255, 230, 1)'
         ]
     };
-    // ============================================================
 
     function setup() {
         DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -2972,7 +2932,6 @@ function showPage(pageId) {
         ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     }
 
-    // ---------- DUST ----------
     function makeParticle(anywhere) {
         const size = CONFIG.minSize + Math.random() * (CONFIG.maxSize - CONFIG.minSize);
         return {
@@ -2992,7 +2951,6 @@ function showPage(pageId) {
         };
     }
 
-    // ---------- FAIRY ----------
     function makeFairy() {
         return {
             x: Math.random() * W,
@@ -3018,7 +2976,7 @@ function showPage(pageId) {
         fairies = [];
         for (let i = 0; i < CONFIG.fairyCount; i++) {
             const f = makeFairy();
-            f.life = Math.random() * f.maxLife * 0.7; // stagger start
+            f.life = Math.random() * f.maxLife * 0.7;
             fairies.push(f);
         }
     }
@@ -3031,10 +2989,8 @@ function showPage(pageId) {
             ctx.clearRect(0, 0, W, H);
         }
 
-        // ---------- FAIRY SPARKLES ----------
         for (let i = 0; i < fairies.length; i++) {
             const f = fairies[i];
-
             f.life++;
             f.pulse += f.pulseSpeed;
             f.x += f.vx;
@@ -3059,12 +3015,10 @@ function showPage(pageId) {
             ctx.shadowColor = f.color;
             ctx.shadowBlur = CONFIG.fairyGlowBlur;
 
-            // Core dot
             ctx.beginPath();
             ctx.arc(f.x, f.y, f.size, 0, Math.PI * 2);
             ctx.fill();
 
-            // 4-point star when bright enough
             if (alpha > 0.55) {
                 const ray = f.size * CONFIG.fairyStarSize;
                 ctx.beginPath();
@@ -3086,7 +3040,6 @@ function showPage(pageId) {
             ctx.shadowBlur = 0;
         }
 
-        // ---------- FALLING DUST ----------
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
 
@@ -3118,7 +3071,6 @@ function showPage(pageId) {
             const cycle = p.sparklePhase % CONFIG.sparkleCycle;
             const isFlashing = cycle < CONFIG.flashFrames;
 
-            // Base dust with soft glow
             ctx.globalAlpha = p.alpha;
             ctx.fillStyle = p.color;
             ctx.shadowColor = p.color;
@@ -3128,7 +3080,6 @@ function showPage(pageId) {
             ctx.fill();
             ctx.shadowBlur = 0;
 
-            // Dust sparkle glint
             if (isFlashing) {
                 const ray = p.size * CONFIG.starMultiplier;
                 const core = p.size * 1.6;
@@ -3197,11 +3148,6 @@ function showPage(pageId) {
         hide: () => { canvas.classList.remove('show'); stop(); }
     };
 })();
-
-
-
-
-
 
 // ============================================
 // PRODUCT DATA
@@ -3276,34 +3222,10 @@ if (menuToggle) {
 }
 
 // ============================================
-// DROPDOWN FUNCTIONS
+// FILTER STATE
 // ============================================
 let currentMain = 'branding-hub';
-let currentSub = 'web-app-dev';
-
-function toggleDropdown() {
-    const menu = document.getElementById('dropdownMenu');
-    const btn = document.getElementById('dropdownBtn');
-    menu.classList.toggle('open');
-    btn.classList.toggle('open');
-}
-
-function selectSubFilter(button, value) {
-    document.querySelectorAll('.dropdown-menu .sub-btn').forEach(b => b.classList.remove('active'));
-    button.classList.add('active');
-    document.getElementById('selectedSubFilter').textContent = button.textContent.trim();
-    document.getElementById('dropdownMenu').classList.remove('open');
-    document.getElementById('dropdownBtn').classList.remove('open');
-    currentSub = value;
-    if (currentSub === 'web-app-dev') {
-        document.getElementById('websiteExamples').classList.add('show');
-        document.getElementById('productGrid').style.display = 'grid';
-    } else {
-        document.getElementById('websiteExamples').classList.remove('show');
-        document.getElementById('productGrid').style.display = 'grid';
-    }
-    filterProducts();
-}
+let currentSub = 'landing-page';
 
 function showProcessPopup() {
     document.getElementById('processOverlay').classList.add('active');
@@ -3336,89 +3258,75 @@ window.addEventListener('scroll', function() {
 // FLOATING FILTER BUTTONS
 // ============================================
 const filterBtns = document.querySelectorAll('.filter-btn');
-const productCards = document.querySelectorAll('.product-card');
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', function() {
         filterBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         currentMain = this.dataset.filter;
-
-        const subElement = document.getElementById('branding-sub');
-        if (currentMain === 'branding-hub') {
-            subElement.classList.add('show');
-            if (currentSub !== 'web-app-dev') {
-                currentSub = 'web-app-dev';
-                document.querySelectorAll('.dropdown-menu .sub-btn').forEach(b => b.classList.remove('active'));
-                document.querySelector('.dropdown-menu .sub-btn[data-subfilter="web-app-dev"]').classList.add('active');
-                document.getElementById('selectedSubFilter').textContent = 'Web/App Development';
-            }
-            document.getElementById('websiteExamples').classList.add('show');
-            document.getElementById('productGrid').style.display = 'grid';
-        } else {
-            subElement.classList.remove('show');
-            document.getElementById('websiteExamples').classList.remove('show');
-            document.getElementById('productGrid').style.display = 'grid';
-        }
-        filterProducts();
+        switchHub(currentMain);
     });
 });
 
-function filterProducts() {
-    productCards.forEach(card => {
-        const cat = card.dataset.category;
-        const sub = card.dataset.subcategory;
-        let show = false;
-        if (currentMain === 'all') {
-            show = true;
-        } else if (currentMain === cat) {
-            if (currentMain === 'backend-hub' || currentMain === 'booking-hub' || currentMain === 'independent-services') {
-                show = true;
-            } else if (currentMain === 'branding-hub') {
-                show = sub === currentSub;
-            }
-        }
-        card.style.display = show ? 'block' : 'none';
-    });
+function switchHub(hubId) {
+    const websiteExamples     = document.getElementById('websiteExamples');
+    const backendExamples     = document.getElementById('backendExamples');
+    const bookingExamples     = document.getElementById('bookingExamples');
+    const independentExamples = document.getElementById('independentExamples');
+
+    // Hide all scrollers by default
+    websiteExamples.classList.remove('show');
+    backendExamples.classList.remove('show');
+    bookingExamples.classList.remove('show');
+    independentExamples.classList.remove('show');
+
+    // Hide all hub buttons, then show ONLY the matching one
+    document.querySelectorAll('.hub-btn').forEach(btn => btn.classList.remove('visible'));
+
+    if (hubId === 'branding-hub') {
+        websiteExamples.classList.add('show');
+        document.querySelector('.hub-btn[data-hub="revenue"]')?.classList.add('visible');
+    } else if (hubId === 'backend-hub') {
+        backendExamples.classList.add('show');
+        document.querySelector('.hub-btn[data-hub="backend"]')?.classList.add('visible');
+    } else if (hubId === 'booking-hub') {
+        bookingExamples.classList.add('show');
+        document.querySelector('.hub-btn[data-hub="booking"]')?.classList.add('visible');
+    } else if (hubId === 'independent-services') {
+        independentExamples.classList.add('show');
+        // No button shown for Independent Services
+    }
 }
 
+// ============================================
+// INIT
+// ============================================
 const brandingBtn = document.querySelector('.filter-btn[data-filter="branding-hub"]');
 if (brandingBtn) brandingBtn.click();
 
-document.addEventListener('click', function(event) {
-    const dropdownWrapper = document.querySelector('.dropdown-wrapper');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const dropdownBtn = document.getElementById('dropdownBtn');
-    if (dropdownWrapper && !dropdownWrapper.contains(event.target)) {
-        if (dropdownMenu) dropdownMenu.classList.remove('open');
-        if (dropdownBtn) dropdownBtn.classList.remove('open');
-    }
-});
-
 // ============================================
-// DRAG TO SCROLL
+// DRAG TO SCROLL (all scrollers)
 // ============================================
-const examplesScroll = document.getElementById('examplesScroll');
-let isDown = false;
-let startX;
-let scrollLeftPos;
-if (examplesScroll) {
-    examplesScroll.addEventListener('mousedown', (e) => {
+document.querySelectorAll('.examples-scroll-wrapper').forEach(scroller => {
+    let isDown = false;
+    let startX;
+    let scrollLeftPos;
+    scroller.addEventListener('mousedown', (e) => {
         isDown = true;
-        startX = e.pageX - examplesScroll.offsetLeft;
-        scrollLeftPos = examplesScroll.scrollLeft;
-        examplesScroll.style.cursor = 'grabbing';
+        startX = e.pageX - scroller.offsetLeft;
+        scrollLeftPos = scroller.scrollLeft;
+        scroller.style.cursor = 'grabbing';
     });
-    examplesScroll.addEventListener('mouseleave', () => { isDown = false; examplesScroll.style.cursor = 'grab'; });
-    examplesScroll.addEventListener('mouseup', () => { isDown = false; examplesScroll.style.cursor = 'grab'; });
-    examplesScroll.addEventListener('mousemove', (e) => {
+    scroller.addEventListener('mouseleave', () => { isDown = false; scroller.style.cursor = 'grab'; });
+    scroller.addEventListener('mouseup', () => { isDown = false; scroller.style.cursor = 'grab'; });
+    scroller.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
-        const x = e.pageX - examplesScroll.offsetLeft;
+        const x = e.pageX - scroller.offsetLeft;
         const walk = (x - startX) * 1.5;
-        examplesScroll.scrollLeft = scrollLeftPos - walk;
+        scroller.scrollLeft = scrollLeftPos - walk;
     });
-}
+});
 
 // ============================================
 // PURPOSE NOTES
@@ -3428,7 +3336,10 @@ function showPurpose(type) {
         'landing': { icon: '🎯', title: 'Landing Page', subtitle: 'What is this website type?', body: 'Designed to <span class="highlight-text">convert visitors into leads</span>. Focused on a single goal with a clear call-to-action. Perfect for marketing campaigns and product launches.' },
         'brochure': { icon: '📄', title: 'Brochure Site', subtitle: 'What is this website type?', body: 'A <span class="highlight-text">digital brochure</span> showcasing your business, services, and contact information. Ideal for small businesses and professionals who want a clean, professional online presence.' },
         'blog': { icon: '📝', title: 'Blog Platform', subtitle: 'What is this website type?', body: 'A <span class="highlight-text">content platform</span> to share knowledge, build authority, and engage your audience. Essential for content marketing, SEO, and building a community around your brand.' },
-        'ecommerce': { icon: '🛒', title: 'E-Commerce Store', subtitle: 'What is this website type?', body: 'An <span class="highlight-text">online store</span> to sell products or services with secure payment processing. Opens your business to global customers with features like inventory management and order tracking.' }
+        'ecommerce': { icon: '🛒', title: 'E-Commerce Store', subtitle: 'What is this website type?', body: 'An <span class="highlight-text">online store</span> to sell products or services with secure payment processing. Opens your business to global customers with features like inventory management and order tracking.' },
+        'backend': { icon: '🗄️', title: 'Backend System', subtitle: 'What is this system type?', body: 'A <span class="highlight-text">management system</span> that runs behind the scenes — inventory, finance, HR, and more. Built to streamline operations and give you real-time control.' },
+        'booking': { icon: '📅', title: 'Booking System', subtitle: 'What is this system type?', body: 'A <span class="highlight-text">reservation platform</span> that lets customers book appointments, rooms, or resources automatically — with reminders, staff assignment, and analytics.' },
+        'independent': { icon: '✨', title: 'Independent Service', subtitle: 'What is this service type?', body: 'A <span class="highlight-text">standalone service</span> you can purchase on its own — graphic design, web development, or digital marketing. No bundle required, just exactly what you need.' }
     };
     const data = purposeData[type];
     if (!data) return;
@@ -3715,7 +3626,6 @@ function resetContactForm() {
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
 
 // ===== DISABLE ALL ZOOMING =====
 document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
