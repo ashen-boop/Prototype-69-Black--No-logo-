@@ -2129,7 +2129,7 @@ button, a, input, select, textarea {
     <ul class="menu">
       <li><a onclick="showPage('home')" class="nav-link active">Home</a></li>
      <li><a href="https://about-us-10.vercel.app/" class="nav-link">About</a></li>
-      <li><a onclick="showPage('products')" class="nav-link">Website Examples</a></li>
+      <li><a onclick="showPage('products')" class="nav-link">Portfolio</a></li>
       <li><a href="https://lead-form-5.vercel.app/" target="_blank" class="nav-link">Contact</a></li>
     </ul>
 
@@ -2440,7 +2440,7 @@ button, a, input, select, textarea {
         <div class="examples-container">
           <div class="example-box" data-category="seo-content">
             <div class="box-image"><img src="https://i.postimg.cc/HkcNTbgS/appointment-apps-5-3-aspect-ratio-minimalistic-white-background-Image.png" alt="Appointment System"><span class="box-tag">Appointment</span></div>
-            <div class="box-content"><h3>Appointment System</h3><p>Clinic, Doctor's Appointment etc.</p>
+            <div class="box-content"><h3>Appointment System</h3><p>Software that lets clients book, reschedule, and manage service times online.</p>
               <div class="box-footer">
                 <button class="btn-purpose" onclick="showPurpose('booking')"><i class="fas fa-info-circle"></i> Purpose</button>
                 <button class="btn-view" onclick="openDetail('seo-content')">Examples <i class="fas fa-arrow-right"></i></button>
@@ -2483,27 +2483,27 @@ button, a, input, select, textarea {
         <div class="examples-container">
           <div class="example-box" data-category="brand-identity-kit">
             <div class="box-image"><img src="https://i.postimg.cc/8zf7NhGD/Social-Media-Design.jpg" alt="Digital Marketing"><span class="box-tag">Digital Marketing</span></div>
-            <div class="box-content"><h3>Digital Marketing</h3><p>Logo, color palette, fonts, business card, letterhead, social templates.</p>
+            <div class="box-content"><h3>Digital Marketing</h3><p>Promoting products or brands through online channels and digital strategies.</p>
               <div class="box-footer">
-                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> </button>
                 <button class="btn-view" onclick="openDetail('brand-identity-kit')">Examples <i class="fas fa-arrow-right"></i></button>
               </div>
             </div>
           </div>
           <div class="example-box" data-category="motion-graphics">
             <div class="box-image"><img src="https://i.postimg.cc/SNt50DwD/inventory-management-(2).png" alt="Web Development"><span class="box-tag">Web Development</span></div>
-            <div class="box-content"><h3>Web Development</h3><p>Animated explainers, social media videos, and motion branding that captivates your audience.</p>
+            <div class="box-content"><h3>Web Development</h3><p>Building and maintaining websites using code and design principles.</p>
               <div class="box-footer">
-                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> </button>
                 <button class="btn-view" onclick="openDetail('motion-graphics')">Examples <i class="fas fa-arrow-right"></i></button>
               </div>
             </div>
           </div>
           <div class="example-box" data-category="ui-ux-design">
             <div class="box-image"><img src="https://i.postimg.cc/0QXChYxY/Colorful-paintbrush-showing-graphic-design-minimalistic-(1).jpg" alt="Graphic Design"><span class="box-tag">Graphic Design</span></div>
-            <div class="box-content"><h3>Graphic Design</h3><p>User-centric design for websites and apps. Wireframes, prototyping, and user testing included.</p>
+            <div class="box-content"><h3>Graphic Design</h3><p> Creating visual content to communicate ideas and messages clearly.</p>
               <div class="box-footer">
-                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> Purpose</button>
+                <button class="btn-purpose" onclick="showPurpose('independent')"><i class="fas fa-info-circle"></i> </button>
                 <button class="btn-view" onclick="openDetail('ui-ux-design')">Examples <i class="fas fa-arrow-right"></i></button>
               </div>
             </div>
@@ -3658,6 +3658,28 @@ document.addEventListener('mousewheel', function(e) {
         e.preventDefault();
     }
 }, { passive: false });
+
+// ============================================
+// DEEP LINK SUPPORT (open specific page via URL)
+// ============================================
+(function handleDeepLink() {
+    function checkHash() {
+        const hash = window.location.hash.replace('#', '').toLowerCase();
+        if (hash === 'portfolio' || hash === 'products') {
+            showPage('products');
+        } else if (hash === 'about') {
+            showPage('about');
+        } else if (hash === 'contact') {
+            showPage('contact');
+        } else if (hash === 'home') {
+            showPage('home');
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', checkHash);
+    window.addEventListener('hashchange', checkHash);
+})();
+
 </script>
 </body>
 </html>
