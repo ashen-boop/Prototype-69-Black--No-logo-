@@ -3662,9 +3662,14 @@ document.addEventListener('mousewheel', function(e) {
 // ============================================
 // DEEP LINK SUPPORT (open specific page via URL)
 // ============================================
+// ============================================
+// DEEP LINK SUPPORT (pages + hubs)
+// ============================================
 (function handleDeepLink() {
     function checkHash() {
         const hash = window.location.hash.replace('#', '').toLowerCase();
+
+        // Page-level links
         if (hash === 'portfolio' || hash === 'products') {
             showPage('products');
         } else if (hash === 'about') {
@@ -3673,6 +3678,29 @@ document.addEventListener('mousewheel', function(e) {
             showPage('contact');
         } else if (hash === 'home') {
             showPage('home');
+        }
+
+        // Hub-level links (open portfolio + select hub)
+        else if (hash === 'revenue-hub') {
+            showPage('products');
+            setTimeout(() => {
+                document.querySelector('.filter-btn[data-filter="branding-hub"]')?.click();
+            }, 100);
+        } else if (hash === 'backend-hub') {
+            showPage('products');
+            setTimeout(() => {
+                document.querySelector('.filter-btn[data-filter="backend-hub"]')?.click();
+            }, 100);
+        } else if (hash === 'booking-hub') {
+            showPage('products');
+            setTimeout(() => {
+                document.querySelector('.filter-btn[data-filter="booking-hub"]')?.click();
+            }, 100);
+        } else if (hash === 'independent-services') {
+            showPage('products');
+            setTimeout(() => {
+                document.querySelector('.filter-btn[data-filter="independent-services"]')?.click();
+            }, 100);
         }
     }
 
